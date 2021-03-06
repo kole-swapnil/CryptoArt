@@ -349,9 +349,6 @@ class AllItemComponent extends Component {
         };
         this.toggleModal1 = this.toggleModal1.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.onAuctionBtn = this.onAuctionBtn.bind(this);
-        this.hasSoldBtn = this.hasSoldBtn.bind(this);
-        this.allBtn = this.allBtn.bind(this);
     }
 
     toggleModal1() {
@@ -401,6 +398,10 @@ class AllItemComponent extends Component {
         this.setState({ art: soldDocs });
     };
 
+    newBtn = () => {
+        console.log(allDocs[0]);
+    };
+
     render() {
         const menu = this.state.art.map((x) => {
             return (
@@ -424,7 +425,9 @@ class AllItemComponent extends Component {
                     <button onClick={this.allBtn} className='bbtn'>
                         All
                     </button>
-                    <button className='bbtn'>New</button>
+                    <button onClick={this.newBtn} className='bbtn'>
+                        New
+                    </button>
                     <button onClick={this.onAuctionBtn} className='bbtn'>
                         On Auction
                     </button>
