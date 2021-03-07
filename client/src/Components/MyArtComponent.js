@@ -290,7 +290,7 @@ class Allpatrender extends Component {
             ) {
                 return (
                     <ReactPlayer
-                        width={'270px'}
+                        class={orientation}
                         loop={true}
                         playing={true}
                         url={this.props.art.imgurl}
@@ -325,11 +325,6 @@ class Allpatrender extends Component {
                 className='card-artcard'>
                 {/* <a href={this.props.art.imgurl} target='_blank'> */}
                 <div className='card-img-top-all-art'>
-                    {/* <CardImg
-                            className={orientation}
-                            top
-                            src={this.props.art.imgurl}
-                            alt='Card image'></CardImg> */}
                     {displayFileType()}
                     <Link to={`/card/${this.props.art.tokenIdentifier}`}>
                         <CardImgOverlay style={{ width: '100%' }}>

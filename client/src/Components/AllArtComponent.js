@@ -18,6 +18,8 @@ import {
     CardSubtitle
 } from 'reactstrap';
 import Web3 from 'web3';
+import Sound from 'react-sound';
+import ReactPlayer from 'react-player';
 import './AllArtComponent.css';
 import checkmark from '../images/svg/checkmark.svg';
 import anonUser from '../images/user.png';
@@ -132,25 +134,76 @@ class AllArt extends Component {
         img.src = this.props.art.imgurl;
         img.onload();
 
+        const displayFileType = () => {
+            if (/\.(jpe?g|png|gif|bmp)$/i.test(this.props.art.imgurl)) {
+                return (
+                    <Link to={`/card/${this.props.art.tokenIdentifier}`}>
+                        <CardImg
+                            className={orientation}
+                            top
+                            src={this.props.art.imgurl}
+                            alt='Card image'></CardImg>
+                    </Link>
+                );
+            } else if (/\.(?:wav|mp3)$/i.test(this.props.art.imgurl)) {
+                return (
+                    <>
+                        <button
+                            style={{
+                                zIndex: '1'
+                            }}
+                            onClick={() =>
+                                this.setState({
+                                    soundPlaying: !this.state.soundPlaying
+                                })
+                            }>
+                            {this.state.soundPlaying ? 'Pause' : 'Play'}
+                        </button>
+                        <Sound
+                            url={this.props.art.imgurl}
+                            playStatus={
+                                this.state.soundPlaying
+                                    ? Sound.status.PLAYING
+                                    : ''
+                            }
+                            playFromPosition={300 /* in milliseconds */}
+                            onLoading={this.handleSongLoading}
+                            onPlaying={this.handleSongPlaying}
+                            onFinishedPlaying={this.handleSongFinishedPlaying}
+                        />
+                    </>
+                );
+            } else if (
+                /\.(?:mov|avi|wmv|flv|3pg|mp4|mpg)$/i.test(
+                    this.props.art.imgurl
+                )
+            ) {
+                return (
+                    <Link to={`/card/${this.props.art.tokenIdentifier}`}>
+                        <ReactPlayer
+                            style={{maxWidth: '270px'}}
+                            loop={true}
+                            playing={true}
+                            url={this.props.art.imgurl}
+                        />
+                    </Link>
+                );
+            }
+        };
+
         return (
             <Card
                 // height='300px'
                 // width='245px'
                 // className={this.props.art.auction.isBidding ? buk : bak}
                 className='all-art-card'>
+                <div className='card-img-top-all-art'>{displayFileType()}</div>
                 <Link
                     style={{
                         color: '#212529',
                         textDecoration: 'none'
                     }}
                     to={`/card/${this.props.art.tokenIdentifier}`}>
-                    <div className='card-img-top-all-art'>
-                        <CardImg
-                            // className='card-img-top-all-art'
-                            className={orientation}
-                            top
-                            src={this.props.art.imgurl}></CardImg>
-                    </div>
                     <CardBody className='all-art-body'>
                         <div style={{ display: 'flex' }}>
                             <CardSubtitle>
