@@ -73,6 +73,7 @@ class Main extends Component {
             allDocs = [];
             allDocs = response;
             console.log(response);
+            
             this.setState({ art: allDocs });
         } catch (error) {
             // Catch any errors for any of the above operations.

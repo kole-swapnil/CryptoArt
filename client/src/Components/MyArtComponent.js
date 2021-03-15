@@ -291,6 +291,7 @@ class Allpatrender extends Component {
                 return (
                     <ReactPlayer
                         class={orientation}
+                        style={{ maxWidth: '270px' }}
                         loop={true}
                         playing={true}
                         url={this.props.art.imgurl}
